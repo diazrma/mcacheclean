@@ -16,9 +16,22 @@ function activate(context) {
 
   let disposable = vscode.commands.registerCommand(
     "mcacheclean.limparcache", async() => {
-		const result =  await vscode.workspace.fs.createDirectory(vscode.Uri.file('/var'));
+
+		const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;  
+		const dirVar = vscode.Uri.file(wsPath + '/var/');
+		const dirGenerated = vscode.Uri.file(wsPath + '/generated/');
 		
-		vscode.window.showInformationMessage('Tudo Limpo por aqui"');
+		vscode.workspace.fs.delete(dirVar,{recursive:true});
+	
+
+		vscode.workspace.fs.delete(dirGenerated,{recursive:true});
+		
+		vscode.workspace.fs.createDirectory(dirVar)
+		
+		vscode.workspace.fs.createDirectory(dirGenerated)
+	
+		vscode.window.showInformationMessage('Tudo Limpo por aqui!');
+		
 	}
   );
 
