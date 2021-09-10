@@ -6,7 +6,7 @@
   "author": "Rodrigo Cardoso da Luz",
   "license": "MIT",
   "description": "Extensão limpa as pastas var e generated na raiz de um projeto magento",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.58.0"
   },

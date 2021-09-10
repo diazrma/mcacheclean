@@ -15,29 +15,13 @@ function activate(context) {
   console.log("McacheClean está ativo");
 
   let disposable = vscode.commands.registerCommand(
-    "mcacheclean.limparcache",
-    function () {
-      const rmGenerated = () => {
-        fs.rmdirSync(path.join(__dirname, "generated"), { recursive: true });
-        rmVar();
-      };
-
-      const rmVar = () => {
-        fs.rmdirSync(path.join(__dirname, "var"), { recursive: true });
-        createFolders();
-      };
-
-      const createFolders = () => {
-        fs.mkdir(path.join(__dirname, "var"), (err) => {
-			
-		});
-
-        fs.mkdir(path.join(__dirname, "generated"), (err) => {});
-        vscode.window.showInformationMessage("Tudo limpo por aqui!");
-      };
-      rmGenerated();
-    }
+    "mcacheclean.limparcache", async() => {
+		const result =  await vscode.workspace.fs.createDirectory(vscode.Uri.file('/var'));
+		
+		vscode.window.showInformationMessage('Tudo Limpo por aqui"');
+	}
   );
+
 
   context.subscriptions.push(disposable);
 }
