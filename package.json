@@ -6,7 +6,7 @@
   "author": "Rodrigo Cardoso da Luz",
   "license": "MIT",
   "description": "Extensão limpa as pastas var e generated na raiz de um projeto magento",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.58.0"
   },
@@ -14,16 +14,22 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:mcacheclean.limparcache"
+    "onCommand:mcacheclean.clearcache"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "mcacheclean.limparcache",
+        "command": "mcacheclean.clearcache",
         "title": "Limpar Cache do Magento"
       }
-    ]
+    ],"keybindings": [
+      {
+          "command": "mcacheclean.clearcache",
+          "key": "ctrl+alt+c",
+          "mac": "cmd+alt+c"         
+      }
+  ]
   },
   "repository": {
     "type": "git",

@@ -3,6 +3,7 @@
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
+const config = JSON.parse(fs.readFileSync("./config/base.json", "utf8"));
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -11,30 +12,31 @@ const path = require("path");
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-
   console.log("McacheClean está ativo");
 
   let disposable = vscode.commands.registerCommand(
-    "mcacheclean.limparcache", async() => {
+    "mcacheclean.clearcache",
+    async () => {
+      const pathFolder = config.folders;
 
-		const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;  
-		const dirVar = vscode.Uri.file(wsPath + '/var/');
-		const dirGenerated = vscode.Uri.file(wsPath + '/generated/');
-		
-		vscode.workspace.fs.delete(dirVar,{recursive:true});
-	
+      const wsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
-		vscode.workspace.fs.delete(dirGenerated,{recursive:true});
-		
-		vscode.workspace.fs.createDirectory(dirVar)
-		
-		vscode.workspace.fs.createDirectory(dirGenerated)
-	
-		vscode.window.showInformationMessage('Tudo Limpo por aqui!');
-		
-	}
+      pathFolder.forEach((path) => {
+        const folders = vscode.Uri.file(wsPath + path);
+
+        vscode.workspace.fs.delete(folders, { recursive: true });
+        setTimeout(() => {
+          try {
+            vscode.workspace.fs.createDirectory(folders);
+          } catch (error) {
+            vscode.window.showInformationMessage(`Ocorreu um erro: ${erro}`);
+          }
+        }, 2000);
+
+        vscode.window.showInformationMessage("Tudo Limpo por aqui!");
+      });
+    }
   );
-
 
   context.subscriptions.push(disposable);
 }

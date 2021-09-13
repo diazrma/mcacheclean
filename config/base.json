@@ -1,0 +1,9 @@
+{
+    "description":"Configuration of folders that will be recreated",
+    "type":"array",    
+    "folders": [
+        "/var/",
+        "/generated/",
+        "/pub/static/frontend"
+    ]
+}
